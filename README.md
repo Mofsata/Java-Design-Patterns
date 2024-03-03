@@ -33,6 +33,6 @@ Behavioral patterns characterize the ways in which classes or objects interact a
 
 ## References
 
-[Design Patterns: Elements of Reusable Object-Oriented Software](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/ref=pd_vtp_h_pd_vtp_h_d_sccl_2/141-4975694-0593056?pd_rd_w=MRfGx&content-id=amzn1.sym.e16c7d1a-0497-4008-b7be-636e59b1dfaf&pf_rd_p=e16c7d1a-0497-4008-b7be-636e59b1dfaf&pf_rd_r=AC2DJA9YXXN2HD8HR95K&pd_rd_wg=iZRF7&pd_rd_r=fb2cdd0b-345f-48c4-8a01-edd081975897&pd_rd_i=0201633612&psc=1)
+[Design Patterns: Elements of Reusable Object-Oriented Software](https://www.google.com.eg/books/edition/Design_Patterns/6oHuKQe3TjQC?hl=en&gbpv=0)
 
-[Java Design Patterns by Vaskaran Sarcar](https://www.amazon.com/Java-Design-Patterns-Vaskaran-Sarcar/dp/1484218019)
+[Java Design Patterns by Vaskaran Sarcar](https://www.google.com.eg/books/edition/Java_Design_Patterns/uq9PCwAAQBAJ?hl=en&gbpv=0)
