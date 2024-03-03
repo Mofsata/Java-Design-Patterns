@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 // "Product"
 class Product {
-    // We can use any data structure that you prefer. We have used LinkedList here.
+    // You can use any data structure that you prefer. We have used LinkedList here.
     private LinkedList<String> parts;
 
     public Product() {
@@ -23,13 +23,11 @@ class Product {
 }
 
 interface IBuilder {
-    void BuildBody();
-
-    void InsertWheels();
-
-    void AddHeadlights();
-
-    Product GetVehicle();
+    void BuildPC();
+    void InsertCPU();
+    void InsertGPU();
+    void AddRAM();
+    Product GetPC();
 }
 
 // "Director"
@@ -39,58 +37,69 @@ class Director {
     // A series of steps—for the production
     public void Construct(IBuilder builder) {
         myBuilder = builder;
-        myBuilder.BuildBody();
-        myBuilder.InsertWheels();
-        myBuilder.AddHeadlights();
+        myBuilder.BuildPC();
+        myBuilder.InsertCPU();
+        myBuilder.InsertGPU();
+        myBuilder.AddRAM();
     }
 }
 
-// Car is ConcreteBuilder
-class Car implements IBuilder {
+// MyPC is ConcreteBuilder
+class MyPC implements IBuilder {
     private Product product = new Product();
 
     @Override
-    public void BuildBody() {
-        product.Add("This is a body of a Car");
+    public void BuildPC() {
+        product.Add("My PC has :");
     }
 
     @Override
-    public void InsertWheels() {
-        product.Add("4 wheels are added");
+    public void InsertCPU() {
+        product.Add("\tIntel i9 CPU");
     }
 
     @Override
-    public void AddHeadlights() {
-        product.Add("2 Headlights are added");
+    public void InsertGPU() {
+        product.Add("\tRTX 3060 GPU");
     }
 
     @Override
-    public Product GetVehicle() {
+    public void AddRAM() {
+        product.Add("\t32GB RAM");
+    }
+
+    @Override
+    public Product GetPC() {
         return product;
     }
 }
 
-// Motorcycle is a ConcreteBuilder
-class MotorCycle implements IBuilder {
+// OthersPC is a ConcreteBuilder
+class OthersPC implements IBuilder {
     private Product product = new Product();
 
     @Override
-    public void BuildBody() {
-        product.Add("This is a body of a Motorcycle");
+    public void BuildPC() {
+        product.Add("Your PC has :");
     }
 
     @Override
-    public void InsertWheels() {
-        product.Add("2 wheels are added");
+    public void InsertCPU() {
+        product.Add("\tRyzen 9 CPU");
     }
 
     @Override
-    public void AddHeadlights() {
-        product.Add("1 Headlights are added");
+    public void InsertGPU() {
+        product.Add("\tRX 7800 XT GPU");
     }
 
     @Override
-    public Product GetVehicle() {
+    public void AddRAM() {
+        product.Add("\t16GB RAM");
+    }
+
+    @Override
+    public Product GetPC() {
         return product;
     }
 }
@@ -99,15 +108,15 @@ public class App {
     public static void main(String[] args) {
         System.out.println("***Builder Pattern Demo***");
         Director director = new Director();
-        IBuilder carBuilder = new Car();
-        IBuilder motorBuilder = new MotorCycle();
-        // Making Car
-        director.Construct(carBuilder);
-        Product p1 = carBuilder.GetVehicle();
+        IBuilder myPCBuilder = new MyPC();
+        IBuilder yourPCBuilder = new OthersPC();
+        // Making My PC
+        director.Construct(myPCBuilder);
+        Product p1 = myPCBuilder.GetPC();
         p1.Show();
-        // Making MotorCycle
-        director.Construct(motorBuilder);
-        Product p2 = motorBuilder.GetVehicle();
+        // Making Your PC
+        director.Construct(yourPCBuilder);
+        Product p2 = yourPCBuilder.GetPC();
         p2.Show();
     }
 }
