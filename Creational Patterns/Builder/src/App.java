@@ -13,7 +13,7 @@ class Product {
         if (this.RAM != 0)
             System.out.println("\tRAM : "+ this.RAM + "GB");
         if (this.diskDriver != null)
-            System.out.println("\tDiskDriver : "+ this.diskDriver);
+            System.out.println("\tDisk Driver : "+ this.diskDriver);
     }
 }
 
@@ -22,6 +22,7 @@ interface IBuilder {
     void InsertCPU();
     void InsertGPU();
     void AddRAM();
+    void addDiskDriver(String dd);
     Product GetPC();
 }
 
@@ -62,6 +63,11 @@ class MyPC implements IBuilder {
     public void AddRAM() {
         product.RAM = 32;
     }
+    
+    @Override
+    public void addDiskDriver(String dd) {
+        product.diskDriver = dd;
+    }
 
     @Override
     public Product GetPC() {
@@ -94,6 +100,11 @@ class OthersPC implements IBuilder {
     }
 
     @Override
+    public void addDiskDriver(String dd) {
+        product.diskDriver = dd;
+    }
+
+    @Override
     public Product GetPC() {
         return product;
     }
@@ -111,6 +122,8 @@ public class App {
         p1.Show();
         // Making Your PC
         director.Construct(yourPCBuilder);
+        // adding optional parameter
+        yourPCBuilder.addDiskDriver("SSD");
         Product p2 = yourPCBuilder.GetPC();
         p2.Show();
     }
