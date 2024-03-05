@@ -15,23 +15,20 @@ Use the Builder pattern when :
 
 ```Java
 class Product {
-    // You can use any data structure that you prefer. We have used LinkedList here.
-    private LinkedList<String> parts;
+    String CPU;
+    String GPU;
+    int RAM;
+    String diskDriver;
 
-    public Product() {
-        parts = new LinkedList<String>();
-    }
-
-    public void Add(String part) {
-        // Adding parts
-        parts.addLast(part);
-    }
-
-    public void Show() {
-        System.out.println("\nProduct completed as below :");
-        for (int i = 0; i < parts.size(); i++) {
-            System.out.println("\t"+parts.get(i));
-        }
+    void Show(){
+        if (this.CPU != null)
+            System.out.println("\tCPU : "+ this.CPU);
+        if (this.GPU != null)
+            System.out.println("\tGPU : "+ this.GPU);
+        if (this.RAM != 0)
+            System.out.println("\tRAM : "+ this.RAM + "GB");
+        if (this.diskDriver != null)
+            System.out.println("\tDisk Driver : "+ this.diskDriver);
     }
 }
 ```
@@ -44,11 +41,12 @@ interface IBuilder {
     void InsertCPU();
     void InsertGPU();
     void AddRAM();
+    void addDiskDriver(String dd);
     Product GetPC();
 }
 ```
 
-The IBuilder interface is implemented by all the ConcreteBuilder classes.
+Ihe IBuilder interface is implemented by all the ConcreteBuilder classes.
 
 ```Java
 class Director {
@@ -66,7 +64,7 @@ class Director {
 ```
 
 The client creates the Director object and configures it with the desired Builder object.
-In this Construct method we choose to add all the parts, but you can easily choose the parts you want to add simply by not calling the add-method of that particular part in the director Construct method.
+In this Construct method we choose to add all the parts except for the disk driver, but you can easily choose the parts you want to add simply by not calling the add-method of that particular part in the director Construct method.
 
 ![client-builder relation](Builder-Director.PNG)
 
@@ -83,22 +81,27 @@ class MyPC implements IBuilder {
 
     @Override
     public void BuildPC() {
-        product.Add("My PC has :");
+        System.out.println("Building My PC...");
     }
 
     @Override
     public void InsertCPU() {
-        product.Add("\tIntel i9 CPU");
+        product.CPU = "Intel i9 CPU";
     }
 
     @Override
     public void InsertGPU() {
-        product.Add("\tRTX 3060 GPU");
+        product.GPU = "RTX 3060 GPU";
     }
 
     @Override
     public void AddRAM() {
-        product.Add("\t32GB RAM");
+        product.RAM = 32;
+    }
+    
+    @Override
+    public void addDiskDriver(String dd) {
+        product.diskDriver = dd;
     }
 
     @Override
@@ -117,22 +120,27 @@ class OthersPC implements IBuilder {
 
     @Override
     public void BuildPC() {
-        product.Add("Your PC has :");
+        System.out.println("Building Your PC...");
     }
 
     @Override
     public void InsertCPU() {
-        product.Add("\tRyzen 9 CPU");
+        product.CPU = "Ryzen 9 CPU";
     }
 
     @Override
     public void InsertGPU() {
-        product.Add("\tRX 7800 XT GPU");
+        product.GPU = "RX 7800 XT GPU";
     }
 
     @Override
     public void AddRAM() {
-        product.Add("\t16GB RAM");
+        product.RAM = 16;
+    }
+
+    @Override
+    public void addDiskDriver(String dd) {
+        product.diskDriver = dd;
     }
 
     @Override
@@ -157,28 +165,30 @@ public class App {
         p1.Show();
         // Making Your PC
         director.Construct(yourPCBuilder);
+        // adding optional parameter
+        yourPCBuilder.addDiskDriver("SSD");
         Product p2 = yourPCBuilder.GetPC();
         p2.Show();
     }
 }
 ```
 
+In the main, we choose to add a disk driver to the `Your PC`.
+This parameter is optional as it was not defined in the director constructor method.
+
 Now we run this code to test the design pattern and the output should be :
 
 ```Terminal
 ***Builder Pattern Demo***
-
-Product completed as below :
-        My PC has :
-                Intel i9 CPU
-                RTX 3060 GPU
-                32GB RAM
-
-Product completed as below :
-        Your PC has :
-                Ryzen 9 CPU
-                RX 7800 XT GPU
-                16GB RAM
+Building My PC...
+        CPU : Intel i9 CPU
+        GPU : RTX 3060 GPU
+        RAM : 32GB
+Building Your PC...
+        CPU : Ryzen 9 CPU
+        GPU : RX 7800 XT GPU
+        RAM : 16GB
+        Disk Driver : SSD
 ```
 
 ## Consequences
