@@ -1,24 +1,19 @@
-import java.util.LinkedList;
-
 // "Product"
 class Product {
-    // You can use any data structure that you prefer. We have used LinkedList here.
-    private LinkedList<String> parts;
+    String CPU;
+    String GPU;
+    int RAM;
+    String diskDriver;
 
-    public Product() {
-        parts = new LinkedList<String>();
-    }
-
-    public void Add(String part) {
-        // Adding parts
-        parts.addLast(part);
-    }
-
-    public void Show() {
-        System.out.println("\nProduct completed as below :");
-        for (int i = 0; i < parts.size(); i++) {
-            System.out.println("\t"+parts.get(i));
-        }
+    void Show(){
+        if (this.CPU != null)
+            System.out.println("\tCPU : "+ this.CPU);
+        if (this.GPU != null)
+            System.out.println("\tGPU : "+ this.GPU);
+        if (this.RAM != 0)
+            System.out.println("\tRAM : "+ this.RAM + "GB");
+        if (this.diskDriver != null)
+            System.out.println("\tDiskDriver : "+ this.diskDriver);
     }
 }
 
@@ -50,22 +45,22 @@ class MyPC implements IBuilder {
 
     @Override
     public void BuildPC() {
-        product.Add("My PC has :");
+        System.out.println("Building My PC...");
     }
 
     @Override
     public void InsertCPU() {
-        product.Add("\tIntel i9 CPU");
+        product.CPU = "Intel i9 CPU";
     }
 
     @Override
     public void InsertGPU() {
-        product.Add("\tRTX 3060 GPU");
+        product.GPU = "RTX 3060 GPU";
     }
 
     @Override
     public void AddRAM() {
-        product.Add("\t32GB RAM");
+        product.RAM = 32;
     }
 
     @Override
@@ -80,22 +75,22 @@ class OthersPC implements IBuilder {
 
     @Override
     public void BuildPC() {
-        product.Add("Your PC has :");
+        System.out.println("Building Your PC...");
     }
 
     @Override
     public void InsertCPU() {
-        product.Add("\tRyzen 9 CPU");
+        product.CPU = "Ryzen 9 CPU";
     }
 
     @Override
     public void InsertGPU() {
-        product.Add("\tRX 7800 XT GPU");
+        product.GPU = "RX 7800 XT GPU";
     }
 
     @Override
     public void AddRAM() {
-        product.Add("\t16GB RAM");
+        product.RAM = 16;
     }
 
     @Override
